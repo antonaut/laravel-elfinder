@@ -60,6 +60,16 @@ class ElfinderController extends \Controller
         $dir = Config::get($this->package . '::dir');
         $roots = Config::get($this->package . '::roots');
 
+        $url = \Request::server('REQUEST_URI');
+        if(strstr($url, '?'))
+        {
+            $bits = explode('?', $url);
+            $url = $bits[1];
+            parse_str($url, $gets);
+            $_GET = $gets;
+        }
+
+
         if (!$roots)
         {
             $roots = array(
